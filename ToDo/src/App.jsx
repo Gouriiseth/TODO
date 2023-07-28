@@ -1,17 +1,15 @@
 import Todo from './components/Todo'
-import  { useState } from "react"
 
 function App() {
 
-  const [input, setInput] = useState('')
-  const [todos, setTodos] = useState([])
+
+  // const [editedText, setEditedText] = useState("");
   return (
     <>
       <Todo
-        input={input}
-        setInput={setInput}
-        todos={todos}
-        setTodos={setTodos}
+        
+        // editedText={editedText}
+        // setEditedText={setEditedText}
       
       />
     </>
