@@ -3,13 +3,13 @@ import  { useState } from "react"
 
 function App() {
 
-  const [inputt, setInputt] = useState('')
+  const [input, setInput] = useState('')
   const [todos, setTodos] = useState([])
   return (
     <>
       <Todo
-        inputt={inputt}
-        setInputt={setInputt}
+        input={input}
+        setInput={setInput}
         todos={todos}
         setTodos={setTodos}
       
