@@ -6,12 +6,8 @@ const Todo = () => {
   const [input, setInput] = useState("");
   const [todos, setTodos] = useState([]);
   const [isEdit, setIsEdit] = useState(false);
-  // const [edit, setEdit] = useState(null)
   const [updateEdit, setUpdateEdit] = useState();
   const [completedTodos, setCompletedTodos] = useState([]);
-  const [unCompletedTodos, setUnCompletedTodos] = useState([]);
-
-
 
   const handleAddTodo = () => {
     console.log(todos);
@@ -25,22 +21,18 @@ const Todo = () => {
           },
         ]);
       } else {
-        // setTodos([...todos, input])
         setTodos((prevData) => {
           const updatedData = prevData.map((e) =>
-            // e.text==updateEdit?input:e.text
             {
               if (e.text == updateEdit) {
                 e.text = input;
                 e.status = false;
-                console.log(e);
                 return e;
               } else {
                 return e;
               }
             }
           );
-          console.log(updatedData);
           return updatedData;
         });
         setIsEdit(false);
@@ -51,17 +43,11 @@ const Todo = () => {
   };
 
   const handleDoneTodo = (elem)=>{
-    console.log(elem);
     todos.map(todo=>{
-      console.log(todo);
     })
-
     const p=todos.filter(todo=>todo.text!=elem.text );
-    console.log(p);
     setTodos(p);
    setCompletedTodos(todo=>[...todo,elem])
-    console.log(completedTodos);
-        
     };
     useEffect(() => {
       console.log(completedTodos);
@@ -69,27 +55,11 @@ const Todo = () => {
 
 
   const handleUndoneTodo=(elem)=>{
-    // console.log(elem);
-    // todos.map(todo => {
-    //   console.log(todo);
-    // })
-    // console.log(todos);
-    const q = todos.filter(todo => todo.text!= elem.text);
-    console.log(q);
-    setTodos(q);
-    setUnCompletedTodos(prevUcd => [...prevUcd, elem])
-    console.log(unCompletedTodos);
-
-    console.log(todos);
-    // console.log(completedTodos);
-    const updatedCompletedTodos = completedTodos.filter(todo => todo.text !== elem.text);
-    setCompletedTodos(updatedCompletedTodos)
+    const q = completedTodos.filter(todo => todo.text!= elem.text);
+    const r = completedTodos.filter(todo => todo.text == elem.text);
+    setCompletedTodos(q);
+    setTodos(prevTodos => [...prevTodos,elem]);
   };
-  useEffect(() => {
-    console.log(unCompletedTodos);
-    setTodos(todo=>[...todo,...unCompletedTodos]);
-  }, [unCompletedTodos])
-
     
   const handleEditTodo = (elem) => {
     setIsEdit(true);
@@ -156,7 +126,7 @@ const Todo = () => {
       </div>
       {/* // completed task */}
       <div className="completed-block mt-4 flex flex-row justify-evenly bg-yellow-300 w-5/6  ">
-        <div className="completed-task text-2xl font-bold h-max pb-3">
+        <div className="completed-task text-2xl font-bold h-max py-5 px-10 w-full">
           Completed Task
           <div className="flex flex-col bg-green-200 rounded  pb-10 mt-3 px-5">
             {completedTodos.map((elem)=>(
@@ -170,8 +140,6 @@ const Todo = () => {
             ))} 
             </div>
         </div>
-        <div className="completed-task text-2xl font-bold">Deleted Task</div>
-        <div className="flex flex-col bg-yellow-300 rounded h-fit pb-10 place-items-center "></div>
       </div>
     </div>
   );
