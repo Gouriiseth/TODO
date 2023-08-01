@@ -9,10 +9,12 @@ const Todo = () => {
   // const [edit, setEdit] = useState(null)
   const [updateEdit, setUpdateEdit] = useState();
   const [completedTodos, setCompletedTodos] = useState([]);
+  const [unCompletedTodos, setUnCompletedTodos] = useState([]);
 
 
 
   const handleAddTodo = () => {
+    console.log(todos);
     if (input !== "") {
       if (!isEdit) {
         setTodos([
@@ -54,12 +56,12 @@ const Todo = () => {
       console.log(todo);
     })
 
-    const p=todos.filter(todo=>todo.text!=elem.text);
+    const p=todos.filter(todo=>todo.text!=elem.text );
     console.log(p);
     setTodos(p);
    setCompletedTodos(todo=>[...todo,elem])
     console.log(completedTodos);
-      
+        
     };
     useEffect(() => {
       console.log(completedTodos);
@@ -67,8 +69,27 @@ const Todo = () => {
 
 
   const handleUndoneTodo=(elem)=>{
-    console.log(elem);
-  }
+    // console.log(elem);
+    // todos.map(todo => {
+    //   console.log(todo);
+    // })
+    // console.log(todos);
+    const q = todos.filter(todo => todo.text!= elem.text);
+    console.log(q);
+    setTodos(q);
+    setUnCompletedTodos(prevUcd => [...prevUcd, elem])
+    console.log(unCompletedTodos);
+
+    console.log(todos);
+    // console.log(completedTodos);
+    const updatedCompletedTodos = completedTodos.filter(todo => todo.text !== elem.text);
+    setCompletedTodos(updatedCompletedTodos)
+  };
+  useEffect(() => {
+    console.log(unCompletedTodos);
+    setTodos(todo=>[...todo,...unCompletedTodos]);
+  }, [unCompletedTodos])
+
     
   const handleEditTodo = (elem) => {
     setIsEdit(true);
@@ -135,14 +156,14 @@ const Todo = () => {
       </div>
       {/* // completed task */}
       <div className="completed-block mt-4 flex flex-row justify-evenly bg-yellow-300 w-5/6  ">
-        <div className="completed-task text-2xl font-bold h-fit pb-3">
+        <div className="completed-task text-2xl font-bold h-max pb-3">
           Completed Task
           <div className="flex flex-col bg-green-200 rounded  pb-10 mt-3 px-5">
             {completedTodos.map((elem)=>(
             <div className="flex flex-row justify-between text-lg font-[500]"  >
                 <p>{elem.text}</p> 
-                <button className="complete-task pr-2" onClick={() => handleUndoneTodo(elem)}>
-                  <i className="fa fa-check-circle"></i>
+                <button className="uncomplete-task pr-2" onClick={() => handleUndoneTodo(elem)}>
+                  <i className="fa-solid fa-circle-xmark"></i>
                 </button>
               </div>
 
